@@ -1,9 +1,8 @@
-// import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import { StatusBar, useColorScheme, View } from "react-native";
 import {
-  MD3DarkTheme,
-  MD3LightTheme,
+  MD2DarkTheme,
+  MD2LightTheme,
   Provider as PaperProvider,
 } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -18,7 +17,7 @@ export function PaperThemeProvider({
   const insets = useSafeAreaInsets();
 
   const theme = React.useMemo(
-    () => (colorScheme === "dark" ? MD3DarkTheme : MD3LightTheme),
+    () => (colorScheme === "dark" ? MD2DarkTheme : MD2LightTheme),
     [colorScheme],
   );
 
@@ -29,7 +28,8 @@ export function PaperThemeProvider({
           flex: 1,
           paddingTop: insets.top,
           paddingBottom: insets.bottom,
-          backgroundColor: theme.colors.background, // 这里就是你的全局背景色
+          backgroundColor: colorScheme == "dark" ? "black" : "white",
+          // backgroundColor: theme.colors.background,
         }}
       >
         <StatusBar

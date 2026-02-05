@@ -1,6 +1,6 @@
 {
-  "name": "panji paas platform alert messages",
-  "short_name": "panji alert",
+  "name": "panji alert",
+  "short_name": "panji paas platform alert messages",
   "icons": [
     {
       "src": "/icons/web-app-manifest-192x192.png",
@@ -15,7 +15,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#1a1a1a",
-  "background_color": "#1a1a1a",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
   "display": "standalone"
 }

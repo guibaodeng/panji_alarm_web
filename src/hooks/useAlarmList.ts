@@ -1,6 +1,6 @@
 import { Alarm } from "@/src/types/alarm";
 import * as React from "react";
-
+import { useAppConfig } from "./useConfig";
 
 
 export function useAlarmList(province: "hn" | "hb", search: string) {
@@ -12,21 +12,25 @@ export function useAlarmList(province: "hn" | "hb", search: string) {
 
   const PAGE_SIZE = 10;
   const DEFAULT_BASE_URL = "http://113.47.8.100:8000";
-const isMounted = React.useRef(false);
+  // const isMounted = React.useRef(false);
+  const {config, error, isReady} = useAppConfig()
+
+  const BASE_URL = isReady && config?.apiUrl ? config.apiUrl : DEFAULT_BASE_URL;
 
 
   const fetchAlarms = async (pageNum = 1, reset = false) => {
-
+    
+    if (!isReady) return    
     setLoading(true);
-
     try {
-      let ts = new Date().getTime()
+      let ts = new Date().getTime();
+      const url: string =  `${BASE_URL}/list_panji_alarms` +
+                          `?page=${pageNum}&page_size=${PAGE_SIZE}` +
+                          `&province=${province}&keyword=${encodeURIComponent(search)}&ts=${ts}`;
       const res = await fetch(
-        `${DEFAULT_BASE_URL}/list_panji_alarms` +
-          `?page=${pageNum}&page_size=${PAGE_SIZE}` +
-          `&province=${province}&keyword=${encodeURIComponent(search)}&ts=${ts}`,{
-           cache: 'no-store', // 🔹 强制 iOS 不读缓存
-           mode: 'cors'
+        url,{
+            cache: 'no-store',
+            mode: 'cors'
         }
       );
 
@@ -42,24 +46,21 @@ const isMounted = React.useRef(false);
     }
   };
 
+  // React.useEffect(() => {   
+  //   fetchAlarms(1, true);
+  //   isMounted.current = true;
+  // }, []); // 仅执行一次
+
   React.useEffect(() => {
-    // 1. 挂载时立即发一次，不要等 500ms 防抖
-    fetchAlarms(1, true);
-    isMounted.current = true;
-  }, []); // 仅执行一次
-
-
-
-  // 搜索 / 省份变化
-  React.useEffect(() => {
-    if (!isMounted.current) return;
-    const t = setTimeout(() => {
-      setPage(1);
-      setHasMore(true);
-      fetchAlarms(1, true);
-    }, 500);
-    return () => clearTimeout(t);
-  }, [province, search]);
+    if (isReady) {
+      const t = setTimeout(() => {
+        setPage(1);
+        setHasMore(true);
+        fetchAlarms(1, true);
+      }, 300);
+      return () => clearTimeout(t);
+    }
+  }, [isReady, province, search]);
 
   const loadMore = () => {
     if (!loading && hasMore && alarms.length > 0) {

@@ -4,8 +4,7 @@ import { AlarmList } from "@/src/components/AlarmList";
 import { useAlarmList } from "@/src/hooks/useAlarmList";
 import { Alarm } from "@/src/types/alarm";
 import * as React from "react";
-import { View } from "react-native";
-import { useTheme } from "react-native-paper";
+import { View, useColorScheme } from "react-native";
 
 export function AlarmScreen({
   defaultProvince = "hn",
@@ -14,8 +13,7 @@ export function AlarmScreen({
 }) {
   const [province, setProvince] = React.useState<"hn" | "hb">(defaultProvince);
 
-  const theme = useTheme();
-  // const scheme = useColorScheme();
+  const colorScheme = useColorScheme();
 
   const [search, setSearch] = React.useState("");
   const [current, setCurrent] = React.useState<Alarm | null>(null);
@@ -28,7 +26,7 @@ export function AlarmScreen({
         style={{
           flex: 1,
           overflow: "hidden",
-          backgroundColor: theme.colors.background,
+          backgroundColor: colorScheme === "dark" ? "black" : "white",
         }}
       >
         <AlarmAppBar province={province} />

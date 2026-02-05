@@ -1,5 +1,20 @@
 const CACHE_NAME = "panji-alert";
-const urlsToCache = ["/", "/icons/web-app-manifest-512x512.png"];
+const urlsToCache = ["/", "/icons/apple-touch-icon-v3.png"];
+
+self.addEventListener('activate', (event) => {
+    event.waitUntil(
+        caches.keys().then((cacheNames) => {
+            return Promise.all(
+                cacheNames.map((cache) => {
+                    if (cache !== CACHE_NAME) {
+                        console.log('正在清理旧缓存:', cache);
+                        return caches.delete(cache);
+                    }
+                })
+            );
+        })
+    );
+});
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
