@@ -1,6 +1,6 @@
+import { useAppConfig } from "@/src/hooks/useConfig";
 import { Alarm } from "@/src/types/alarm";
 import * as React from "react";
-import { useAppConfig } from "./useConfig";
 
 
 export function useAlarmList(province: "hn" | "hb", search: string) {
@@ -12,7 +12,7 @@ export function useAlarmList(province: "hn" | "hb", search: string) {
 
   const PAGE_SIZE = 10;
   const DEFAULT_BASE_URL = "http://113.47.8.100:8000";
-  // const isMounted = React.useRef(false);
+  const isMounted = React.useRef(false);
   const {config, error, isReady} = useAppConfig()
 
   const BASE_URL = isReady && config?.apiUrl ? config.apiUrl : DEFAULT_BASE_URL;
@@ -46,12 +46,13 @@ export function useAlarmList(province: "hn" | "hb", search: string) {
     }
   };
 
-  // React.useEffect(() => {   
-  //   fetchAlarms(1, true);
-  //   isMounted.current = true;
-  // }, []); // 仅执行一次
+  React.useEffect(() => {   
+    fetchAlarms(1, true);
+    isMounted.current = true;
+  }, []); // 仅执行一次
 
   React.useEffect(() => {
+    if (!isMounted.current) return
     if (isReady) {
       const t = setTimeout(() => {
         setPage(1);

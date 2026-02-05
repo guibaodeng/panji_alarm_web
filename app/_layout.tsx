@@ -2,7 +2,6 @@ import { PaperThemeProvider } from "@/src/theme/PaperThemeProvider";
 import { Stack } from "expo-router";
 import Head from "expo-router/head";
 import * as SystemUI from "expo-system-ui";
-import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 
 export default function RootLayout() {
@@ -12,16 +11,16 @@ export default function RootLayout() {
   SystemUI.setBackgroundColorAsync(isDark ? "black" : "white");
 
   // 注册 Service Worker
-  useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker
-          .register("/service-worker.js")
-          .then((reg) => console.log("SW registered", reg))
-          .catch((err) => console.log("SW registration failed", err));
-      });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if ("serviceWorker" in navigator) {
+  //     window.addEventListener("load", () => {
+  //       navigator.serviceWorker
+  //         .register("/service-worker.js")
+  //         .then((reg) => console.log("SW registered", reg))
+  //         .catch((err) => console.log("SW registration failed", err));
+  //     });
+  //   }
+  // }, []);
 
   return (
     <PaperThemeProvider>
