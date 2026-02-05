@@ -22,7 +22,16 @@
       "predictiveBackGestureEnabled": false
     },
     "web": {
+      "themeColor": "#000000",
+      "backgroundColor": "#000000",
+      "configuration": {
+        "display": "standalone"
+      },
       "output": "static",
+      "bundler": "metro",
+      "build": {
+        "routerMode": "hash"
+      },
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
@@ -42,7 +51,8 @@
     ],
     "experiments": {
       "typedRoutes": true,
-      "reactCompiler": true
+      "reactCompiler": true,
+      "baseUrl": ""
     }
   }
 }
