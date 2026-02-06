@@ -88,7 +88,7 @@ export const BlueMateriaDarkTheme: MD3Theme = {
     "surfaceVariant": "#44474E",
     "onSurfaceVariant": "#C4C6D0",
     "outline": "#8E9099",
-    "outlineVariant": "#44474E",
+    "outlineVariant": "#44474E", 
     "shadow": "#000000",
     "scrim": "#000000",
     "inverseSurface": "#E2E2E9",

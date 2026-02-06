@@ -1,14 +1,11 @@
 import { PaperThemeProvider } from "@/src/theme/PaperThemeProvider";
 import { Stack } from "expo-router";
 import Head from "expo-router/head";
-import * as SystemUI from "expo-system-ui";
 import { useColorScheme } from "react-native";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === "dark";
-
-  SystemUI.setBackgroundColorAsync(isDark ? "black" : "white");
 
   // 注册 Service Worker
   // useEffect(() => {

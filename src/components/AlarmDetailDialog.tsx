@@ -22,7 +22,8 @@ export function AlarmDetailDialog({
             <Text>
               {alarm.raw_alarm
                 .replace("-告警目标", "\n告警目标")
-                .replace(/【[^【]*$/, "")
+                .replace("【磐基 PaaS 平台】", "")
+                // .replace(/【[^【]*$/, "")
                 .trim()}
             </Text>
           )}

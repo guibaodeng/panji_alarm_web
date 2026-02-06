@@ -1,11 +1,12 @@
+import * as SystemUI from "expo-system-ui";
 import * as React from "react";
 import { StatusBar, useColorScheme, View } from "react-native";
-import {
-  MD2DarkTheme,
-  MD2LightTheme,
-  Provider as PaperProvider,
-} from "react-native-paper";
+import { Provider as PaperProvider } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import {
+  BlueMateriaDarkTheme,
+  BlueMateriaLightTheme,
+} from "./BlueMateriaTheme";
 
 export function PaperThemeProvider({
   children,
@@ -17,9 +18,14 @@ export function PaperThemeProvider({
   const insets = useSafeAreaInsets();
 
   const theme = React.useMemo(
-    () => (colorScheme === "dark" ? MD2DarkTheme : MD2LightTheme),
+    () =>
+      colorScheme === "dark" ? BlueMateriaDarkTheme : BlueMateriaLightTheme,
     [colorScheme],
   );
+
+  React.useEffect(() => {
+    SystemUI.setBackgroundColorAsync(theme.colors.background);
+  }, []);
 
   return (
     <PaperProvider theme={theme}>
@@ -28,8 +34,8 @@ export function PaperThemeProvider({
           flex: 1,
           paddingTop: insets.top,
           paddingBottom: insets.bottom,
-          backgroundColor: colorScheme == "dark" ? "black" : "white",
-          // backgroundColor: theme.colors.background,
+          // backgroundColor: colorScheme == "dark" ? "black" : "white",
+          backgroundColor: theme.colors.background,
         }}
       >
         <StatusBar
@@ -40,5 +46,4 @@ export function PaperThemeProvider({
       </View>
     </PaperProvider>
   );
-  // return <PaperProvider theme={theme}>{children}</PaperProvider>;
 }

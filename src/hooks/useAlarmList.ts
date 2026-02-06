@@ -19,12 +19,12 @@ export function useAlarmList(province: "hn" | "hb", search: string) {
 
 
   const fetchAlarms = async (pageNum = 1, reset = false) => {
-    
-    if (!isReady) return    
+    console.log(BASE_URL)
+    // if (!isReady) return    
     setLoading(true);
     try {
       let ts = new Date().getTime();
-      const url: string =  `${BASE_URL}/list_panji_alarms` +
+      const url: string =  `${DEFAULT_BASE_URL}/list_panji_alarms` +
                           `?page=${pageNum}&page_size=${PAGE_SIZE}` +
                           `&province=${province}&keyword=${encodeURIComponent(search)}&ts=${ts}`;
       const res = await fetch(
@@ -53,15 +53,15 @@ export function useAlarmList(province: "hn" | "hb", search: string) {
 
   React.useEffect(() => {
     if (!isMounted.current) return
-    if (isReady) {
+    // if (isReady) {
       const t = setTimeout(() => {
         setPage(1);
         setHasMore(true);
         fetchAlarms(1, true);
       }, 300);
       return () => clearTimeout(t);
-    }
-  }, [isReady, province, search]);
+    // }
+  }, [province, search]);
 
   const loadMore = () => {
     if (!loading && hasMore && alarms.length > 0) {
