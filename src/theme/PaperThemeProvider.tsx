@@ -24,7 +24,8 @@ export function PaperThemeProvider({
   );
 
   React.useEffect(() => {
-    SystemUI.setBackgroundColorAsync(theme.colors.background);
+    SystemUI.setBackgroundColorAsync("black");
+    // SystemUI.setBackgroundColorAsync(theme.colors.background);
   }, []);
 
   return (

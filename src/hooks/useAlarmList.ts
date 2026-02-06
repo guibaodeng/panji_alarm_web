@@ -19,7 +19,7 @@ export function useAlarmList(province: "hn" | "hb", search: string) {
 
 
   const fetchAlarms = async (pageNum = 1, reset = false) => {
-    console.log(BASE_URL)
+    // console.log(BASE_URL)
     // if (!isReady) return    
     setLoading(true);
     try {

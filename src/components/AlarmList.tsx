@@ -2,7 +2,13 @@ import { AlarmItem } from "@/src/components/AlarmItem";
 import { Alarm } from "@/src/types/alarm";
 import * as React from "react";
 import { FlatList, RefreshControl, View } from "react-native";
-import { ActivityIndicator, Chip, Searchbar, Text } from "react-native-paper";
+import {
+  ActivityIndicator,
+  Chip,
+  Searchbar,
+  Text,
+  useTheme,
+} from "react-native-paper";
 
 export function AlarmList({
   data,
@@ -25,6 +31,8 @@ export function AlarmList({
   onRefresh: () => void;
   onSelect: (a: Alarm) => void;
 }) {
+  const theme = useTheme();
+
   return (
     <FlatList
       data={data}
@@ -36,10 +44,19 @@ export function AlarmList({
       }
       ListHeaderComponent={
         <Searchbar
+          style={{
+            backgroundColor: theme.colors.surfaceVariant,
+            margin: 8,
+            borderRadius: 12,
+          }}
           placeholder="搜索告警"
           value={search}
           onChangeText={onSearch}
-          style={{ margin: 8, borderRadius: 12 }}
+          inputStyle={{
+            color: theme.colors.onSurface,
+          }}
+          placeholderTextColor={theme.colors.onSurfaceVariant}
+          // style={{ margin: 8, borderRadius: 12 }}
         />
       }
       renderItem={({ item }) => (

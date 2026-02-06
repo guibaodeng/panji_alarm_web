@@ -18,13 +18,13 @@ export function AlarmAppBar({
   };
 
   return (
-    <Appbar.Header>
+    <Appbar.Header style={{ backgroundColor: theme.colors.primaryContainer }}>
       <Menu
         visible={visible}
         onDismiss={() => setVisible(false)}
         anchor={
           <Appbar.Action
-            // color={theme.colors.onPrimary}
+            color={theme.colors.onPrimaryContainer}
             // style={{
             //   backgroundColor: theme.colors.primary,
             // }}
@@ -36,7 +36,10 @@ export function AlarmAppBar({
         <Menu.Item title="湖南" onPress={() => handleSelect("hn")} />
         <Menu.Item title="湖北" onPress={() => handleSelect("hb")} />
       </Menu>
-      <Appbar.Content title={`告警 · ${province === "hn" ? "湖南" : "湖北"}`} />
+      <Appbar.Content
+        title={`告警 · ${province === "hn" ? "湖南" : "湖北"}`}
+        color={theme.colors.onPrimaryContainer}
+      />
     </Appbar.Header>
   );
 }
